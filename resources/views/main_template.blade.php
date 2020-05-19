@@ -310,6 +310,24 @@
             transition: .6s;
             top: 84%;
         }
+
+        .boton9 {
+            margin: 0;
+            padding: 10px;
+            box-shadow: 5px 10px 30px #888888;
+            position: absolute;
+            left: 113%;
+            background: #70869e;
+            color: white;
+            width: 300px;
+            height: 50px;
+            border: 1px;
+            font-size: 20px;
+            overflow: hidden;
+            transition: .6s;
+            top: 0%;
+        }
+
         button:focus{
             outline: none;
         }

@@ -9,10 +9,11 @@
     <title>@yield('PageTitle')</title>
 
     <style>
-        body{
+        body {
             scroll-behavior: smooth;
             overflow-x: hidden;
         }
+
         .header {
             height: 100px;
             line-height: 96px;
@@ -28,6 +29,7 @@
             padding: 10px;
             box-shadow: 5px 10px 8px #888888;
         }
+
         h3 {
             font-size: 34px;
             font-family: Times New Roman, sans-serif;
@@ -53,6 +55,7 @@
             padding: 10px;
             box-shadow: 5px 10px 8px #888888;
         }
+
         input#submit {
             margin: 0px;
             background: #70869e;
@@ -79,12 +82,14 @@
             text-align: center;
             left: 18%;
         }
+
         .MainContainer {
             position: relative;
             left: 200px;
             font-size: 54px;
             top: 19px;
         }
+
         #informationContainer {
             font-size: xx-large;
         }
@@ -106,6 +111,8 @@
             background: #70869e;
         }
 
+
+
         @yield('style')
 
 
@@ -115,7 +122,9 @@
 
 <nav class="header">
     @yield('PageTitle')
-    <div class="goToProfile" id="goBackButton" ><p1 style="margin: 0px; position: relative;left: -17px;top: 16px;">Go Back</p1></div>
+    <div class="goToProfile" id="goBackButton">
+        <p1 style="margin: 0px; position: relative;left: -17px;top: 16px;">Go Back</p1>
+    </div>
 </nav>
 @yield('Content')
 

@@ -76,37 +76,10 @@ Route::get('/userChanges', 'HomeController@userChanges');
 Route::get('/deleteUser/{id}', ['uses'=>'HomeController@deleteUser']);
 
 
-//Route::get('/read', function (){
-//    $results = DB::select('select * from album');
-//
-//    print('<table>');
-//    print('<tr style="color: white"><th style="background: black;">ID</th><th style="background: black">Title</th></tr>');
-//
-//    foreach($results as $album) {
-//            print('<tr><td style="background: #8cc3de;">'.$album->albumid.'</td> <td style="text-align: center; background: lightblue">'.$album->title.'</td></tr>');
-//    }
-//    print('</table>');
-//
-//
-////    print('<table>');
-////    print('<tr>');
-////    print('<th>id</th>');
-////    print('<th>Album Name</th>');
-////    print('</tr>');
-////    foreach($results as $artist){
-////        print('<tr>');
-////        print ('<td>');
-////        print ($artist->albumid);
-////        print ('</td>');
-////        print('<td>');
-////        print($artist->title);
-////        print('</td>');
-////        print('</tr>');
-////    }
-////    print('</table>');
-//
-//});
-//
+
+// To generate CSV
+
+Route::get('/generateCSV', 'HomeController@generateCSV');
 
 
 

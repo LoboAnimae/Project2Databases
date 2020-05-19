@@ -52,6 +52,7 @@ Pages that can be gone to through here:
                 <button class="boton6" id="userChanges">Erase Users</button>
                 <button class="boton7" id="changeRoles">Change User Roles</button>
                 <button class="boton8" id="updateInfo">Change Some Info</button>
+                <button class="boton9" id="cvsPage">Generate Users CVS</button>
             @endif
 
 
@@ -104,6 +105,11 @@ Pages that can be gone to through here:
         const changeInfo = document.getElementById('updateInfo');
         changeInfo.addEventListener('click', function () {
             window.location.href = 'http://projectobases.test/updateInfo'
+        })
+
+        const generateCSV = document.getElementById('cvsPage')
+        generateCSV.addEventListener('click', () => {
+            window.location.href = 'http://projectobases.test/generateCSV'
         })
 
     </script>

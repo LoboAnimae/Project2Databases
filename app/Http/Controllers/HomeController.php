@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\album;
 use App\artist;
+use App\invoice;
+use App\invoiceline;
 use App\roles_relations;
 use App\track;
+use App\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -720,5 +723,11 @@ class HomeController extends Controller
             ]);
         return view('updateInfo');
 
+    }
+
+    public function generateCSV() {
+        $users = DB::table("invoice")->get();
+        $csvExporter = new \Laracsv\Export();
+        $csvExporter->build($users, ['invoiceid', 'customerid', 'invoicedate', 'billingaddress', 'billingcity', 'billingstate', 'billingcountry', 'billingpostalcode', 'total'])->download();
     }
 }
