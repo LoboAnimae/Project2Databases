@@ -9,7 +9,7 @@ class logDeletion extends Eloquent
     protected $connection = 'mongodb';
     protected $collection = 'logDeletions';
 
-    
+
 
 }
 
