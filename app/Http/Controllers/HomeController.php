@@ -726,8 +726,8 @@ class HomeController extends Controller
     }
 
     public function generateCSV() {
-        $users = DB::table("invoice")->get();
+        $invoice = DB::table("invoice")->get();
         $csvExporter = new \Laracsv\Export();
-        $csvExporter->build($users, ['invoiceid', 'customerid', 'invoicedate', 'billingaddress', 'billingcity', 'billingstate', 'billingcountry', 'billingpostalcode', 'total'])->download();
+        $csvExporter->build($invoice, ['invoiceid', 'customerid', 'invoicedate', 'billingaddress', 'billingcity', 'billingstate', 'billingcountry', 'billingpostalcode', 'total'])->download();
     }
 }

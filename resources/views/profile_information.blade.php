@@ -52,7 +52,7 @@ Pages that can be gone to through here:
                 <button class="boton6" id="userChanges">Erase Users</button>
                 <button class="boton7" id="changeRoles">Change User Roles</button>
                 <button class="boton8" id="updateInfo">Change Some Info</button>
-                <button class="boton9" id="cvsPage">Generate Users CVS</button>
+                <button class="boton9" id="cvsPage">Generate Invoice CVS</button>
             @endif
 
 

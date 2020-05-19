@@ -81,6 +81,10 @@ Route::get('/deleteUser/{id}', ['uses'=>'HomeController@deleteUser']);
 
 Route::get('/generateCSV', 'HomeController@generateCSV');
 
+Route::resource('mongo', "MongoController");
+
+
+
 
 
 
