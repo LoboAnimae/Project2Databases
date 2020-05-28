@@ -5,15 +5,16 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-{{--    Load fonts--}}
+    {{--    Load fonts--}}
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <title>Template</title>
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
         }
+
         .circular--portrait {
             position: relative;
             width: 170px;
@@ -22,7 +23,7 @@
             border-radius: 100%;
         }
 
-        .Circle{
+        .Circle {
             width: 200px;
             height: 200px;
             display: flex;
@@ -33,13 +34,15 @@
             position: absolute;
             top: 15px;
         }
-        body{
+
+        body {
             background: none;
             font-font: "Nunito", sans-serif;
             overflow-x: hidden;
             overflow-y: hidden;
         }
-        .search-box{
+
+        .search-box {
             position: relative;
             background: white;
             height: 40px;
@@ -47,7 +50,8 @@
             padding: 10px;
             left: 225px;
         }
-        .search-btn{
+
+        .search-btn {
             color: #e84118;
             float: right;
             width: 40px;
@@ -60,7 +64,7 @@
             transition: 0.4s;
         }
 
-        .search-txt{
+        .search-txt {
             border: none;
             background: none;
             outline: none;
@@ -72,7 +76,8 @@
             line-height: 40px;
             width: 500px;
         }
-        nav{
+
+        nav {
             margin: 0;
             background: #70869e;
             width: 100%;
@@ -83,8 +88,9 @@
             box-shadow: 5px 10px 30px #888888;
             height: 35px;
         }
-        .logo{
-            position:relative;
+
+        .logo {
+            position: relative;
             width: 70px;
             height: 70px;
             left: 100px;
@@ -97,7 +103,8 @@
                 display: none;
             }
         }
-        aside{
+
+        aside {
             margin: 0;
             position: absolute;
             background: #fff;
@@ -113,24 +120,28 @@
 
 
         }
-        .cuadro{
+
+        .cuadro {
             position: absolute;
-            background:white;
+            background: white;
             width: 75%;
             height: 425px;
             top: 230px
         }
-        .main .articles{
+
+        .main .articles {
             width: 71%;
             margin-left: 2%;
             margin-right: 2%;
-            float:right;
+            float: right;
 
         }
-        .main .articles article{
+
+        .main .articles article {
             margin-bottom: 20px;
         }
-        .main .articles .article1{
+
+        .main .articles .article1 {
             margin: 0;
             padding: 0;
             margin-bottom: 20px;
@@ -139,7 +150,8 @@
             left: -44%;
             position: relative;
         }
-        .Contorno{
+
+        .Contorno {
             width: 300px;
             height: 300px;
             background: #4db8ff;
@@ -149,13 +161,15 @@
             align-items: center;
             float: right;
         }
-        .Badge{
+
+        .Badge {
             width: 270px;
             height: 270px;
             background: white;
             position: relative;
         }
-        button{
+
+        button {
             margin: 0;
             padding: 0;
             position: absolute;
@@ -169,7 +183,8 @@
             left: 500px;
             transition: .6s;
         }
-        .boton1{
+
+        .boton1 {
             margin: 0;
             padding: 10px;
             border: 0;
@@ -187,7 +202,8 @@
             top: 28%;
 
         }
-        .boton4{
+
+        .boton4 {
             margin: 0;
             padding: 10px;
             border: 0;
@@ -223,6 +239,7 @@
             top: 0%;
 
         }
+
         .boton6 {
             margin: 0;
             padding: 10px;
@@ -240,7 +257,8 @@
             top: 28%;
 
         }
-        .boton2{
+
+        .boton2 {
             margin: 0;
             padding: 10px;
             border: 0;
@@ -257,10 +275,12 @@
             transition: .6s;
             top: 56%;
         }
-        .boton3{
-            top:305px;
+
+        .boton3 {
+            top: 305px;
         }
-        button{
+
+        button {
             margin: 0;
             padding: 10px;
             border: 0;
@@ -328,15 +348,32 @@
             top: 0%;
         }
 
-        button:focus{
+        .boton10 {
+            margin: 0;
+            padding: 10px;
+            box-shadow: 5px 10px 30px #888888;
+            position: absolute;
+            left: 113%;
+            background: #70869e;
+            color: white;
+            width: 300px;
+            height: 50px;
+            border: 1px;
+            font-size: 20px;
+            overflow: hidden;
+            transition: .6s;
+            top: 28%;
+        }
+
+        button:focus {
             outline: none;
         }
 
-        button:before{
+        button:before {
             content: '';
             display: block;
             position: absolute;
-            background: rgb(255, 255, 255,.5);
+            background: rgb(255, 255, 255, .5);
             width: 60px;
             height: 100%;
             left: 0;
@@ -345,11 +382,12 @@
             filter: blur(30px);
             transform: rotateX(-130px) skewX(-15deg);
         }
-        button::after{
+
+        button::after {
             content: '';
             display: block;
             position: absolute;
-            background: rgb(255, 255, 255,.2);
+            background: rgb(255, 255, 255, .2);
             width: 30px;
             height: 100%;
             left: 30px;
@@ -358,21 +396,25 @@
             filter: blur(30px);
             transform: translate(-100px) scaleX(-15deg);
         }
-        button:hover{
+
+        button:hover {
             background: #3e413e;
             cursor: pointer;
         }
-        button:hover:before{
+
+        button:hover:before {
             transform: translateX(300px) skewX(-15deg);
             opacity: .6;
             transition: .7s;
         }
-        button:hover::after{
+
+        button:hover::after {
             transform: translateX(300px) skewX(-15deg);
             opacity: 1;
             transition: .7s;
         }
-        hr{
+
+        hr {
             display: block;
             margin-top: 0.5em;
             margin-bottom: 0.5em;
@@ -383,8 +425,7 @@
         }
 
 
-
-        .Playlist{
+        .Playlist {
             margin: 0;
             background: #70869e;
             height: 50px;
@@ -394,6 +435,7 @@
             padding: 10px;
             box-shadow: 5px 10px 30px #888888;
         }
+
         .submitButton#buttonRegister {
             margin: 0;
             padding: 0;
@@ -407,7 +449,8 @@
             font-size: 26px;
             font-family: "Nunito", sans-serif;
         }
-        .profileInformation{
+
+        .profileInformation {
             margin: 0;
             font-size: 3vw;
             padding: 31px;
@@ -433,7 +476,7 @@
         }
 
 
-        .Header{
+        .Header {
             margin: 0;
             padding: 0;
             position: absolute;
@@ -442,11 +485,13 @@
             height: 74px;
 
         }
-        ul, ol{
+
+        ul, ol {
             list-style: none;
 
         }
-        .Nav li a{
+
+        .Nav li a {
             background-color: #000;
             color: #fff;
             text-decoration: none;
@@ -454,50 +499,56 @@
             display: block;
             font-family: 'Nunito', sans-serif;
         }
-        .Nav > li{
+
+        .Nav > li {
             float: left;
         }
-        .Nav li a:hover{
+
+        .Nav li a:hover {
             background-color: #434343;
 
         }
-        .Nav li ul{
+
+        .Nav li ul {
             display: none;
             position: absolute;
             min-width: 140px;
         }
-        .Nav li:hover > ul{
+
+        .Nav li:hover > ul {
             display: block;
         }
-
-
-
 
 
     </style>
 </head>
 <body>
 <nav>
-{{--    <div>--}}
-{{--        <img class="logo" src="tumblr_pg8y3wKzm41tu65zm_540.jpg">--}}
-{{--    </div>--}}
+    {{--    <div>--}}
+    {{--        <img class="logo" src="tumblr_pg8y3wKzm41tu65zm_540.jpg">--}}
+    {{--    </div>--}}
     <div class="logoSide" id="logoPointer">
         Spectrum Explorer
     </div>
-{{--    <div class="search-box">--}}
-{{--        <input class="search-txt" type="text" name="" placeholder="Type to search">--}}
-{{--        <a class="search-btn" href="#">--}}
-{{--            <i class="fas fa-search"></i>--}}
-{{--        </a>--}}
-{{--    </div>--}}
+    {{--    <div class="search-box">--}}
+    {{--        <input class="search-txt" type="text" name="" placeholder="Type to search">--}}
+    {{--        <a class="search-btn" href="#">--}}
+    {{--            <i class="fas fa-search"></i>--}}
+    {{--        </a>--}}
+    {{--    </div>--}}
     <div class="Header">
         <ul class="Nav">
             <li><a href="">Options</a>
                 <ul>
                     <li><a href="http://projectobases.test/Settings">Settings</a>
-                    </li><li><a href="http://projectobases.test/register_new_info">Register</a>
-                    </li><li><a href="http://projectobases.test/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
-                    </li></ul>
+                    </li>
+                    <li><a href="http://projectobases.test/register_new_info">Register</a>
+                    </li>
+                    <li><a href="http://projectobases.test/logout"
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log
+                            Out</a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>
@@ -505,11 +556,11 @@
         @csrf
     </form>
 
-{{--    <div class="submitButton" id="buttonRegister" >Register</div>--}}
+    {{--    <div class="submitButton" id="buttonRegister" >Register</div>--}}
 
 </nav>
 <section class="main">
-@yield('beginningSection')
+    @yield('beginningSection')
     <aside class="sidePanel">
         <div class="Circle">
             <div><img class="circular--portrait" src="@yield('imageSource')"></div>
@@ -531,8 +582,8 @@
 
     const logo = document.getElementById('logoPointer');
 
-    logo.addEventListener("click", function(){
-        window.location='http://projectobases.test/profile';
+    logo.addEventListener("click", function () {
+        window.location = 'http://projectobases.test/profile';
 
     });
 

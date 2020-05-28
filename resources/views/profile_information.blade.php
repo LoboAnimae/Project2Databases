@@ -53,6 +53,7 @@ Pages that can be gone to through here:
                 <button class="boton7" id="changeRoles">Change User Roles</button>
                 <button class="boton8" id="updateInfo">Change Some Info</button>
                 <button class="boton9" id="cvsPage">Generate Invoice CVS</button>
+                <button class="boton10" id="mongoPage">Check Mongo Connection</button>
             @endif
 
 
@@ -110,6 +111,11 @@ Pages that can be gone to through here:
         const generateCSV = document.getElementById('cvsPage')
         generateCSV.addEventListener('click', () => {
             window.location.href = 'http://projectobases.test/generateCSV'
+        })
+
+        const mongoConnection = document.getElementById('mongoPage')
+        mongoConnection.addEventListener('click', () => {
+            window.location.href = 'http://projectobases.test/mongo'
         })
 
     </script>

@@ -207,7 +207,7 @@
         else if (selector.value == 'cancion'){
             document.getElementById('submit').style.display='inline'
             informationContainer.innerHTML=''
-            informationContainer.innerHTML='<h3>Artist Name</h3><br><textarea id="artistName" placeholder="The name of your artist..."></textarea><br><h3>Album Name</h3><br><textarea id="albumName" placeholder="The name of your album..."></textarea><br><h3>Track Name and Genre</h3><br><textarea id="trackName" placeholder="The name of your track..."></textarea><br><textarea id="trackGenre" placeholder="The genre of your track..."></textarea><br>'
+            informationContainer.innerHTML='<h3>Artist Name</h3><br><textarea id="artistName" placeholder="The name of your artist..."></textarea><br><h3>Album Name</h3><br><textarea id="albumName" placeholder="The name of your album..."></textarea><br><h3>Track Name and Genre</h3><br><textarea id="trackName" placeholder="The name of your track..."></textarea><br><textarea id="trackGenre" placeholder="The genre of your track..."></textarea><br><textarea id="url" placeholder="Your Track\'s URL"></textarea><br>'
             currentButton = document.getElementById('submit')
 
             currentButton.addEventListener('click', function() {
@@ -223,22 +223,27 @@
                 if(document.getElementById('trackGenre').value == ''){
                     document.getElementById('trackGenre').value == "1"
                 }
-                if(document.getElementById('artistName').value != '' && document.getElementById('albumName').value!='' && document.getElementById('trackName').value != '' && document.getElementById('trackGenre').value != ''){
+                if(document.getElementById('artistName').value != '' && document.getElementById('albumName').value!='' && document.getElementById('trackName').value != '' && document.getElementById('trackGenre').value != '' && document.getElementById('url').value != ''){
 
 
                     artist_name = document.getElementById('artistName').value
                     album_name = document.getElementById('albumName').value
                     track_name = document.getElementById('trackName').value
                     genrename = document.getElementById('trackGenre').value
+                    track_url = document.getElementById('url').value
+
                     url = 'http://projectobases.test/register_new_info/'
                     artist_name = artist_name.replace(/\//g, '|')
                     album_name = album_name.replace(/\//g, '|')
                     track_name = track_name.replace(/\//g, '|')
+
                     artistFormated = encodeURI(artist_name)
                     albumFormated = encodeURI(album_name)
                     trackFormated = encodeURI(track_name)
+                    trackURLFormatted = encodeURIComponent(track_url)
 
-                    window.location.href= `${url}${artistFormated}/${albumFormated}/${trackFormated}/${genrename}`
+
+                    window.location.href= `${url}${artistFormated}/${albumFormated}/${trackFormated}/${genrename}?url=${trackURLFormatted}`
                 }
             })
 

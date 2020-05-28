@@ -38,7 +38,7 @@ Route::get('/register_new_info/{artist}', ['uses'=> 'HomeController@registerArti
 //Register an album
 Route::get('/register_new_info/{artist}/{album}', ['uses' => 'HomeController@registerAlbum']);
 //Register a track (and its genre)
-Route::get('/register_new_info/{artist}/{album}/{trackName}/{genre}', ['uses' => 'HomeController@registerTrack']);
+Route::get('/register_new_info/{artist}/{album}/{trackName}/{genre}?url={url}', ['uses' => 'HomeController@registerTrack']);
 
 Route::get('/changeRoles', 'HomeController@changeRoles');
 Route::get('/changeRole/{user}/{changeto}', ['uses' => 'HomeController@rolechange']);

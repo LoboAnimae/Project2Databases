@@ -6,9 +6,11 @@ use App\album;
 use App\artist;
 use App\invoice;
 use App\invoiceline;
+use App\modification;
 use App\roles_relations;
 use App\track;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -58,7 +60,7 @@ class HomeController extends Controller
             $roles_relations->save();
         }
 
-//        Returns the current role of the user
+        //        Returns the current role of the user
         $role = $userRole->id_roles;
         $user_role = DB::table('roles')
             ->where('id', $role)
@@ -84,15 +86,13 @@ class HomeController extends Controller
             ->join('artist', 'album.artistid', '=', 'artist.artistid')
             ->join('mediatype', 'track.mediatypeid', '=', 'mediatype.mediatypeid')
             ->join('genre', 'track.genreid', '=', 'genre.genreid')
-//            ->join('users', 'track.added_by', '=', 'users.id')
+            //            ->join('users', 'track.added_by', '=', 'users.id')
             ->selectRaw(DB::raw('track.trackid as trackid, track.name as track, album.title as album, artist.name as artist, mediatype.name as media, genre.name as genre, track.composer as composer, track.milliseconds as duration, track.bytes as size, track.unitprice as price'))
             ->where('hidden_status', '!=', '1')
             ->get();
 
 
         return view('searchQuery', compact('artists', 'albums', 'tracks'));
-
-
     }
 
     public function search($searcher = 1, $word)
@@ -115,7 +115,7 @@ class HomeController extends Controller
             ->join('artist', 'album.artistid', '=', 'artist.artistid')
             ->join('mediatype', 'track.mediatypeid', '=', 'mediatype.mediatypeid')
             ->join('genre', 'track.genreid', '=', 'genre.genreid')
-//            ->join('users', 'track.added_by', '=', 'users.id')
+            //            ->join('users', 'track.added_by', '=', 'users.id')
             ->selectRaw(DB::raw('track.trackid as trackid, track.name as track, album.title as album, artist.name as artist, mediatype.name as media, genre.name as genre, track.composer as composer, track.milliseconds as duration, track.bytes as size, track.unitprice as price'))
             ->where('hidden_status', '!=', '1')
             ->where('track.name', '=', $word_decoded)
@@ -141,10 +141,10 @@ class HomeController extends Controller
         return view('registration_form', compact('user'));
     }
 
-//    Change user information
+    //    Change user information
     public function userChanges()
     {
-//        Authenticate User
+        //        Authenticate User
         $user = Auth::user();
         $username = $user->name;
         $userQuery = DB::table('users')
@@ -174,7 +174,7 @@ class HomeController extends Controller
         $artist_table = DB::table('artist');
         $album_table = DB::table('album');
 
-//        Top 5 Artists
+        //        Top 5 Artists
         $top5Artists = DB::table('artist')
             ->join('album', 'artist.artistid', '=', 'album.artistid')
             ->select(DB::raw(' artist.name, COUNT(album.albumid) as albums'))
@@ -183,7 +183,7 @@ class HomeController extends Controller
             ->limit(5)
             ->get();
 
-//        Genre with most songs
+        //        Genre with most songs
         $genreMostSongs = DB::table('genre')
             ->join('track', 'track.genreid', '=', 'genre.genreid')
             ->selectRaw(DB::raw('genre.name, COUNT(track.genreid) as counter'))
@@ -193,7 +193,7 @@ class HomeController extends Controller
             ->get();
 
 
-//        Playlist Duration
+        //        Playlist Duration
         $playlistDuration = DB::table('playlist')
             ->join('playlisttrack', 'playlist.playlistid', '=', 'playlisttrack.playlistid')
             ->join('track', 'playlisttrack.trackid', '=', 'track.trackid')
@@ -203,7 +203,7 @@ class HomeController extends Controller
             ->get();
 
 
-//        Longest Songs
+        //        Longest Songs
         $longestSongs = DB::table('playlist')
             ->join('playlisttrack', 'playlist.playlistid', '=', 'playlisttrack.playlistid')
             ->join('track', 'playlisttrack.trackid', '=', 'track.trackid')
@@ -212,7 +212,7 @@ class HomeController extends Controller
             ->orderBy('duration', 'desc')
             ->limit(5)
             ->get();
-//        User with the most submitted songs
+        //        User with the most submitted songs
         $userSubmitted = DB::table('users')
             ->join('track', 'users.id', '=', 'track.added_by')
             ->selectRaw(DB::raw('users.name, count(*) as submitted'))
@@ -222,7 +222,7 @@ class HomeController extends Controller
             ->get();
 
 
-//        Average per Genre
+        //        Average per Genre
         $avgGenre = DB::table('genre')
             ->join('track', 'track.genreid', '=', 'genre.genreid')
             ->selectRaw(DB::raw('genre.name, round(avg(track.milliseconds), 2) as average'))
@@ -230,7 +230,7 @@ class HomeController extends Controller
             ->orderBy('average', 'desc')
             ->get();
 
-//        Quantity per playlist
+        //        Quantity per playlist
         $artistPerPlaylist = DB::table('playlist')
             ->join('playlisttrack', 'playlist.playlistid', '=', 'playlisttrack.playlistid')
             ->join('track', 'playlisttrack.trackid', '=', 'track.trackid')
@@ -241,7 +241,7 @@ class HomeController extends Controller
             ->orderBy('counter', 'desc')
             ->get();
 
-//        Genre Diversity
+        //        Genre Diversity
         $genreDiversity = DB::table('artist')
             ->join('album', 'album.artistid', '=', 'artist.artistid')
             ->join('track', 'album.albumid', '=', 'track.albumid')
@@ -281,18 +281,18 @@ class HomeController extends Controller
         $album_name_formated = urldecode($album);
         $album_name_formated = Str::replaceArray('|', ['/'], $album_name_formated);
 
-//        Instantiate table
+        //        Instantiate table
         $album_table = new album;
-////        Check how many albums exist already
+        ////        Check how many albums exist already
         $album_count = DB::table('album')->orderBy('artistid', 'desc')->first();
         $albumidsum = $album_count->albumid;
-////        Check if the artist exists or not (value must be higher than 0)
+        ////        Check if the artist exists or not (value must be higher than 0)
         $artistExists = DB::table('artist')->where('name', $artist_name_formated)->count();
-////        Get the id of the artist
+        ////        Get the id of the artist
         $idGetter = DB::table('artist')->where('name', $artist_name_formated)->first();
-////        Store the id of the artist
+        ////        Store the id of the artist
         $idStorer = $idGetter->artistid;
-//
+        //
         if ($artistExists > 0) {
             $album_table->albumid = $albumidsum + 1;
             $album_table->title = $album_name_formated;
@@ -304,58 +304,57 @@ class HomeController extends Controller
         return redirect()->action('HomeController@profile');
     }
 
-    public function registerTrack($artist, $album, $track, $genre)
+    public function registerTrack($artist, $album, $track, $genre, $availableURL)
     {
 
         $user = Auth::user();
-//      Get the data from the URL
+        //      Get the data from the URL
         $artist_name_formated = urldecode($artist);
         $artist_name_formated = Str::replaceArray('|', ['/'], $artist_name_formated);
         $album_name_formated = urldecode($album);
-//        print($album_name_formated);
         $album_name_formated = Str::replaceArray('|', ['/'], $album_name_formated);
-//        print($album_name_formated);
         $track_name_formated = urldecode($track);
         $track_name_formated = Str::replaceArray('|', ['/'], $track_name_formated);
+        $track_url_formatted = urldecode($availableURL);
 
         $userid = $user->id;
-//        instantiate table
+        //        instantiate table
         $track_table = new track();
-//
-////        ARTIST SECTION
-////        check if the artist exists (count must be larger than 0)
+        //
+        ////        ARTIST SECTION
+        ////        check if the artist exists (count must be larger than 0)
         $artistExists = DB::table('artist')->where('name', $artist_name_formated)->count();
         ////        Get the id of the artist
         $id_artist_getter = DB::table('artist')->where('name', $artist_name_formated)->first();
-////        Store the ID
-//        print('Artist Exists:'.$artistExists);
+        ////        Store the ID
+        //        print('Artist Exists:'.$artistExists);
 
         if ($id_artist_getter == null) {
             return "Artist not found";
         }
         $id_artist = $id_artist_getter->artistid;
-//
-////        ALBUM SECTION
-////        Check if the album exists or not (count must be larger than 0)
+        //
+        ////        ALBUM SECTION
+        ////        Check if the album exists or not (count must be larger than 0)
         $albumExists = DB::table('album')->where('title', $album_name_formated)->count();
-        print ($albumExists);
+        print($albumExists);
         ////        Get the ID of the album
         $id_album_getter = DB::table('album')->where('title', $album_name_formated)->first();
-////        Store the value of the ID
+        ////        Store the value of the ID
         print(var_dump($id_album_getter));
         if ($id_album_getter == null) {
             return "Album not found";
         }
         $id_album = $id_album_getter->albumid;
         print($id_album);
-////        Check if the Album belongs to the artist (Count must be larger than 0)
+        ////        Check if the Album belongs to the artist (Count must be larger than 0)
         $albumBelongsToArtist = DB::table('artist')
             ->join('album', 'artist.artistid', '=', 'artist.artistid')
             ->count();
-        print ($albumBelongsToArtist);
-//
-//        TRACK SECTION
-//       Count how many tracks there are
+        print($albumBelongsToArtist);
+        //
+        //        TRACK SECTION
+        //       Count how many tracks there are
         $trackid = DB::table('track')
             ->orderBy('trackid', 'desc')
             ->first();
@@ -366,18 +365,75 @@ class HomeController extends Controller
         if ($artistExists > 0) {
             if ($albumExists > 0) {
                 if ($albumBelongsToArtist > 0) {
-                    $track_table->trackid = $idtrack + 1;
-                    $track_table->name = $track_name_formated;
-                    $track_table->albumid = $id_album;
-                    $track_table->mediatypeid = 1;
-                    $track_table->genreid = $genre;
-                    $track_table->composer = null;
-                    $track_table->milliseconds = rand(80000, 300000);
-                    $track_table->bytes = rand(90000, 300000);
-                    $track_table->unitprice = 0.99;
-                    $track_table->hidden_status = 0;
-                    $track_table->added_by = $userid;
-                    $track_table->save();
+                    DB::beginTransaction();
+                    try {
+                        // Instantiate the other tables
+
+                        $mod_table = new modification();
+                        $invoice_table = new invoice();
+                        $invoiceline_table = new invoiceline();
+
+
+                        // Insert into the track table
+
+                        $track_table->trackid = $idtrack + 1;
+                        $track_table->name = $track_name_formated;
+                        $track_table->albumid = $id_album;
+                        $track_table->mediatypeid = 1;
+                        $track_table->genreid = $genre;
+                        $track_table->composer = null;
+                        $track_table->milliseconds = rand(80000, 300000);
+                        $track_table->bytes = rand(90000, 300000);
+                        $track_table->unitprice = 0.99;
+                        $track_table->hidden_status = 0;
+                        $track_table->added_by = $userid;
+                        $track_table->url = $track_url_formatted;
+                        $track_table->save();
+
+                        // Insert into the modification table
+                        $mod_table->modification_type = 1;  // 1 = Creation of something
+                        $mod_table->modified_type = 3;      // 3 = Track
+                        $mod_table->modified_id = $idtrack + 1;
+                        $mod_table->user_id = $userid;
+                        $mod_table->date_of_event = Carbon::now();
+                        $mod_table->save();
+
+                        // Insert into the invoice table
+                        $invoiceid = DB::table('invoice')
+                            ->orderBy('invoiceid', 'desc')
+                            ->first();
+
+                        $idinvoice = $invoiceid->invoiceid;
+
+                        $invoice_table->invoiceid = $idinvoice + 1;
+                        $invoice_table->customerid = $userid;
+                        $invoice_table->invoicedate = Carbon::now();
+                        $invoice_table->billingaddress = null;
+                        $invoice_table->billingcity = null;
+                        $invoice_table->billingstate = null;
+                        $invoice_table->billingcountry = null;
+                        $invoice_table->billingpostalcode = null;
+                        $invoice_table->total = 0.0;
+                        $invoice_table->save();
+
+                        // Insert into InvoiceLine Table
+                        $invoicelineid = DB::table('invoiceline')
+                            ->orderBy('invoicelineid', 'desc')
+                            ->first();
+
+                        $idinvoiceline = $invoicelineid->invoicelineid;
+
+                        $invoiceline_table->invoicelineid = $idinvoiceline + 1;
+                        $invoiceline_table->invoiceid = $idinvoice;
+                        $invoiceline_table->trackid = $idtrack;
+                        $invoiceline_table->unitprice = 0.0;
+                        $invoiceline_table->unitprice = 1;
+                        $invoiceline_table->save();
+
+                        DB::commit();
+                    } catch (\Illuminate\Database\QueryException $exception) {
+                        DB::rollBack();
+                    }
                 } else {
                     return "The Album does not belong to the artist";
                 }
@@ -400,25 +456,25 @@ class HomeController extends Controller
         $artist_name_formated = urldecode($artist);
         $artist_name_formated = Str::replaceArray('|', ['/'], $artist_name_formated);
 
-//        Check if the artist exists
+        //        Check if the artist exists
         $artistExists = DB::table('artist')
             ->where('name', $artist_name_formated)
             ->count();
 
         if ($artistExists < 1) return 'This artist does not exist! (Check your caps)';
-//        Get the table that has all the tracks
+        //        Get the table that has all the tracks
         $tracks = DB::table('artist')
             ->join('album', 'artist.artistid', '=', 'album.artistid')
             ->join('track', 'album.albumid', '=', 'track.albumid')
             ->where('artist.name', $artist_name_formated)
             ->get();
-//        Get the table that has all the albums
+        //        Get the table that has all the albums
         $albums = DB::table('artist')
             ->join('album', 'artist.artistid', '=', 'album.artistid')
             ->where('artist.name', $artist_name_formated)
             ->get();
 
-//        Get the table with the artist name
+        //        Get the table with the artist name
 
 
         $track_table = DB::table('track');
@@ -431,13 +487,11 @@ class HomeController extends Controller
         foreach ($tracks as $track) {
             $id = $track->trackid;
             $track_table->where('trackid', $id)->delete();
-
         }
 
         foreach ($albums as $album) {
             $id = $album->albumid;
             $album_table->where('albumid', $id)->delete();
-
         }
 
         DB::table('artist')
@@ -445,8 +499,6 @@ class HomeController extends Controller
 
 
         return redirect()->action('HomeController@profile');
-
-
     }
 
     public function deleteAlbum($artist, $album)
@@ -458,7 +510,7 @@ class HomeController extends Controller
         $album_name_formated = Str::replaceArray('|', ['/'], $album_name_formated);
 
 
-//        Check if the album belongs
+        //        Check if the album belongs
         $album_belong = DB::table('album')
             ->join('artist', 'album.artistid', '=', 'artist.artistid')
             ->where('album.title', $album_name_formated)
@@ -467,7 +519,7 @@ class HomeController extends Controller
 
         if ($album_belong < 1) return 'Album doesn\'t exist!';
 
-//        Get the album id to delete all the tracks
+        //        Get the album id to delete all the tracks
         $id_album = DB::table('album')
             ->join('artist', 'album.artistid', '=', 'artist.artistid')
             ->where('album.title', $album_name_formated)
@@ -482,7 +534,7 @@ class HomeController extends Controller
 
     public function deleteTrack($artist, $album, $track)
     {
-//        Decode URLs
+        //        Decode URLs
         $artist_name_formated = urldecode($artist);
         $artist_name_formated = Str::replaceArray('|', ['/'], $artist_name_formated);
 
@@ -492,13 +544,13 @@ class HomeController extends Controller
         $track_name_formated = urldecode($track);
         $track_name_formated = Str::replaceArray('|', ['/'], $track_name_formated);
 
-//        Instantiate the table
+        //        Instantiate the table
         $trackTable = DB::table('track');
 
-//        Check if track exists
+        //        Check if track exists
         $trackExists = DB::table('track')->where('name', $track_name_formated)
             ->count();
-//        Check if track belongs to Artist
+        //        Check if track belongs to Artist
         $trackBelongs = DB::table('track')
             ->join('album', 'track.albumid', '=', 'album.albumid')
             ->join('artist', 'album.artistid', '=', 'artist.artistid')
@@ -508,11 +560,10 @@ class HomeController extends Controller
             ->count();
 
         if ($trackBelongs < 1) return 'This information is invalid.';
-//        Delete Track
+        //        Delete Track
         $trackTable->where('name', '=', $track_name_formated)
             ->delete();
         return redirect()->action('HomeController@profile');
-
     }
 
     // To hide a song
@@ -535,18 +586,18 @@ class HomeController extends Controller
 
     public function hideTheSongMethod($artist, $album, $track)
     {
-//        Get the data from the URL
+        //        Get the data from the URL
         $artist_name = urldecode($artist);
         $artist_name = Str::replaceArray('|', ['/'], $artist_name);
         $album_name = urldecode($album);
-//        print($album_name);
+        //        print($album_name);
         $album_name = Str::replaceArray('|', ['/'], $album_name);
-//        print($album_name_formated);
+        //        print($album_name_formated);
         $track_name = urldecode($track);
         $track_name = Str::replaceArray('|', ['/'], $track_name);
 
-//        Get Artist id
-//        $idGetter = DB::table('artist')->where('name', $artist_name)->first();
+        //        Get Artist id
+        //        $idGetter = DB::table('artist')->where('name', $artist_name)->first();
         $updatingTable = DB::table('artist')
             ->join('album', 'artist.artistid', '=', 'album.artistid')
             ->join('track', 'album.albumid', '=', 'track.albumid')
@@ -565,7 +616,6 @@ class HomeController extends Controller
             $finder->save();
         }
         return redirect()->action('HomeController@profile');
-
     }
 
     public function deleteUser($userID)
@@ -586,8 +636,6 @@ class HomeController extends Controller
         DB::table('users')->where('id', $userID)->delete();
 
         return redirect()->action('HomeController@userChanges');
-
-
     }
 
 
@@ -625,15 +673,13 @@ class HomeController extends Controller
         $roleTable = new roles_relations;
         $control = DB::table('roles_relations')->where('id_user', $userID)->get();
         DB::table('roles_relations')->where('id_user', $userID)->delete();
-        DB::table('roles_relations')->insert(['id_user' => $userID, 'id_roles' => (int)$roleChanged]);
+        DB::table('roles_relations')->insert(['id_user' => $userID, 'id_roles' => (int) $roleChanged]);
         $control2 = DB::table('roles_relations')->where('id_user', $userID)->get();
         return redirect()->action('HomeController@changeRoles');
-
-
     }
 
 
-//    UPDATE INFORMATION
+    //    UPDATE INFORMATION
     public function UpdateInfoEntrance()
     {
         $user = Auth::user();
@@ -693,7 +739,6 @@ class HomeController extends Controller
                 'album.title' => $album_new_name_formated
             ]);
         return view('updateInfo');
-
     }
 
     public function updateTrackInfo($artist, $album, $track, $newTrack)
@@ -722,10 +767,10 @@ class HomeController extends Controller
                 'track.name' => $newTrackFormated
             ]);
         return view('updateInfo');
-
     }
 
-    public function generateCSV() {
+    public function generateCSV()
+    {
         $invoice = DB::table("invoice")->get();
         $csvExporter = new \Laracsv\Export();
         $csvExporter->build($invoice, ['invoiceid', 'customerid', 'invoicedate', 'billingaddress', 'billingcity', 'billingstate', 'billingcountry', 'billingpostalcode', 'total'])->download();
